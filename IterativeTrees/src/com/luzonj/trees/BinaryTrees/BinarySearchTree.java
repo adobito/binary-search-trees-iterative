@@ -8,7 +8,26 @@ public class BinarySearchTree<E extends Comparable<E>> extends BinaryTree<E>{
 		addRec(element,root);
 	}
 	public void addIter(E element) {
-		addIter(element,root);
+		if(this.root == null) {
+			this.root = new BinaryTreeNode<E>(element);
+			return;
+		}
+		BinaryTreeNode<E> currNode = this.root;
+		while(true) {
+			if(currNode.getElement().compareTo(element) < 0) {
+				if(currNode.getRightChild() == null) {
+					currNode.setRightChild(new BinaryTreeNode<E>(element, currNode));
+					return;
+				}else
+					currNode = currNode.getRightChild();
+			}
+			else 
+				if(currNode.getLeftChild() == null) {
+					currNode.setLeftChild(new BinaryTreeNode<E>(element, currNode));
+					return;
+				}else currNode = currNode.getLeftChild();
+		}
+
 	}
 	private void addRec(E element, BinaryTreeNode<E> root) {
 		if(this.root == null) {
@@ -31,27 +50,6 @@ public class BinarySearchTree<E extends Comparable<E>> extends BinaryTree<E>{
 		}
 	}
 
-	private void addIter(E element, BinaryTreeNode<E> root) {
-		if(this.root == null) {
-			this.root = new BinaryTreeNode<E>(element);
-			return;
-		}
-		while(true) {
-			if(root.getElement().compareTo(element) < 0) {
-				if(root.getRightChild() == null) {
-					root.setRightChild(new BinaryTreeNode<E>(element, root));
-					return;
-				}else
-					root = root.getRightChild();
-			}
-			else 
-				if(root.getLeftChild() == null) {
-					root.setLeftChild(new BinaryTreeNode<E>(element, root));
-					return;
-				}else root = root.getLeftChild();
-		}
-
-	}
 
 	public void preOrderTraversal() {
 		preOrderTraversalRec(root);
