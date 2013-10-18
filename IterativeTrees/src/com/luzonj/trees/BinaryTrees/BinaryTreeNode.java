@@ -57,6 +57,14 @@ public class BinaryTreeNode<E> {
 	public void setRightChild(BinaryTreeNode<E> rightChild) {
 		this.rightChild = rightChild;
 	}
+	
+	public boolean hasLeftChild() {
+		return this.leftChild != null;
+	}
+	
+	public boolean hasRightChild() {
+		return this.rightChild != null;
+	}
 
 
 }

@@ -1,5 +1,8 @@
 package com.luzonj.trees.BinaryTrees;
 
+import java.util.EmptyStackException;
+import java.util.Stack;
+
 
 public class BinarySearchTree<E extends Comparable<E>> extends BinaryTree<E>{
 
@@ -70,8 +73,8 @@ public class BinarySearchTree<E extends Comparable<E>> extends BinaryTree<E>{
 		if(root == null)
 			return;
 
-		preOrderTraversalRec(root.getLeftChild());
-		preOrderTraversalRec(root.getRightChild());
+		postOrderTraversalRec(root.getLeftChild());
+		postOrderTraversalRec(root.getRightChild());
 		System.out.println(root.getElement());
 	}
 	public void inOrderTraversal() {
@@ -82,10 +85,73 @@ public class BinarySearchTree<E extends Comparable<E>> extends BinaryTree<E>{
 		if(root == null)
 			return;
 
-		preOrderTraversalRec(root.getLeftChild());
+		inOrderTraversalRec(root.getLeftChild());
 		System.out.println(root.getElement());
-		preOrderTraversalRec(root.getRightChild());
+		inOrderTraversalRec(root.getRightChild());
 
+	}
+
+
+	public void inOrderTraversalIter() {
+		Stack<BinaryTreeNode<E>> st = new Stack<BinaryTreeNode<E>>();
+
+		st.push(this.root);
+		boolean isDone = false;
+
+		while(!isDone) {
+			if(st.peek().hasLeftChild()) {
+				st.push(st.peek().getLeftChild());
+			} else {
+				while(!isDone) {
+					try {
+						System.out.println(st.peek().getElement());
+						if(st.peek().hasRightChild()) {
+							st.push(st.peek().getRightChild());
+							break;
+						}
+						else 
+							while(st.pop() == st.peek().getRightChild());
+					}
+					catch (EmptyStackException e) {
+						isDone = true;
+					}
+				}
+			}
+		}	
+	}
+
+	public void preOrderTraversalIter() {
+		Stack<BinaryTreeNode<E>> st = new Stack<BinaryTreeNode<E>>();
+		st.push(this.root);
+		BinaryTreeNode<E> currNode;
+		while(!st.isEmpty()) {
+			currNode = st.peek();
+			System.out.println(currNode.getElement());
+			if(currNode.hasLeftChild()) {
+				st.push(currNode.getLeftChild());
+			}
+			else {
+				while(true) {
+					if(currNode.hasRightChild()) {
+						st.push(currNode.getRightChild());
+						break;
+					}
+					else { 
+						do {
+							if(st.isEmpty())
+								return;
+							currNode = st.pop();
+							if(!st.isEmpty()) {
+								if(currNode == st.peek().getRightChild());
+								continue;
+							}
+							break;
+						}
+						while(true);
+					}
+				}
+			}
+		}
 	}
 
 	public void clear() {

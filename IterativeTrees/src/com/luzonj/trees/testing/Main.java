@@ -7,6 +7,19 @@ public class Main {
 	public static void main(String[] args) {
 		BinarySearchTree<Integer> bst = new BinarySearchTree<Integer>();
 		
+		bst.add(100);
+		bst.add(50);
+		bst.add(25);
+		bst.add(37);
+		bst.add(30);
+		bst.add(75);
+		bst.add(87);
+		bst.add(200);
+		bst.add(400);
+		bst.add(300);
+		bst.add(500);
+		bst.inOrderTraversalIter();
+		/**
 		bst.add(4);
 		bst.add(12);
 		bst.add(23);
@@ -24,7 +37,11 @@ public class Main {
 		bst.addIter(1);
 		bst.inOrderTraversal();
 		
-		
+		bst.clear();
+		bst.add(10);
+		bst.add(5);
+		bst.preorderTraversalIter();
+		*/
 	}
 
 }
